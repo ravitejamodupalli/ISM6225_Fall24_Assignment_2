@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security.AccessControl;
 
 namespace Assignment_2
 {
@@ -62,8 +63,19 @@ namespace Assignment_2
         {
             try
             {
-                // Write your code here
-                return new List<int>(); // Placeholder
+                // Initialize a list to store missing numbers
+                IList<int> missingNumbers = new List<int>();
+                // Iterate through numbers from 1 to the length of the array
+                for (int i = 1; i <= nums.Length; i++)
+                {
+                    // If the current number is not in the array, add it to the missing numbers list
+                    if (nums.Contains(i) == false)
+                    {
+                        missingNumbers.Add(i);
+                    }
+                }
+                // Return the list of missing numbers
+                return missingNumbers;
             }
             catch (Exception)
             {
@@ -76,8 +88,24 @@ namespace Assignment_2
         {
             try
             {
-                // Write your code here
-                return new int[0]; // Placeholder
+                // Find all even numbers in the array
+                int[] evenNumbers = Array.FindAll(nums, n => n % 2 == 0);
+                // Find all odd numbers in the array
+                int[] oddNumbers = Array.FindAll(nums, n => n % 2 != 0);
+                // Initialize a new array to store the sorted numbers
+                int[] sortedArray = new int[nums.Length];
+                // Copy even numbers to the beginning of the sorted array
+                for (int i = 0; i < evenNumbers.Length; i++)
+                {
+                    sortedArray[i] = evenNumbers[i];
+                }
+                // Copy odd numbers to the end of the sorted array
+                for (int i = 0; i < oddNumbers.Length; i++)
+                {
+                    sortedArray[evenNumbers.Length + i] = oddNumbers[i];
+                }
+                // Return the sorted array
+                return sortedArray;
             }
             catch (Exception)
             {
@@ -90,8 +118,26 @@ namespace Assignment_2
         {
             try
             {
-                // Write your code here
-                return new int[0]; // Placeholder
+                // Initialize a dictionary to store numbers and their indices
+                Dictionary<int, int> numDict = new Dictionary<int, int>();
+                // Iterate through the array
+                for (int i = 0; i < nums.Length; i++)
+                {
+                    // Calculate the complement of the current number
+                    int complement = target - nums[i];
+                    // If the complement is in the dictionary, return the indices
+                    if (numDict.ContainsKey(complement))
+                    {
+                        return new int[] { numDict[complement], i };
+                    }
+                    // If the current number is not in the dictionary, add it
+                    if (!numDict.ContainsKey(nums[i]))
+                    {
+                        numDict[nums[i]] = i;
+                    }
+                }
+                // Throw an exception if no solution is found
+                throw new Exception("No two sum solution");
             }
             catch (Exception)
             {
@@ -104,8 +150,24 @@ namespace Assignment_2
         {
             try
             {
-                // Write your code here
-                return 0; // Placeholder
+                // Check if the array has at least three elements
+                if (nums.Length < 3)
+                {
+                    throw new ArgumentException("Array must contain at least three elements.");
+                }
+
+                // Sort the array
+                Array.Sort(nums);
+                int n = nums.Length;
+
+                // Calculate the maximum product of the last three elements
+                int maxProduct1 = nums[n - 1] * nums[n - 2] * nums[n - 3];
+
+                // Calculate the maximum product of the first two elements (most negative) and the last element (most positive)
+                int maxProduct2 = nums[0] * nums[1] * nums[n - 1];
+
+                // Return the maximum of the two products
+                return Math.Max(maxProduct1, maxProduct2);
             }
             catch (Exception)
             {
@@ -118,8 +180,21 @@ namespace Assignment_2
         {
             try
             {
-                // Write your code here
-                return "101010"; // Placeholder
+                // Initialize a string to store the binary representation
+                string binary = string.Empty;
+                // If the decimal number is 0, return "0"
+                if (decimalNumber == 0)
+                {
+                    return "0";
+                }
+                // Convert the decimal number to binary
+                while (decimalNumber > 0)
+                {
+                    binary = (decimalNumber % 2) + binary;
+                    decimalNumber /= 2;
+                }
+                // Return the binary representation
+                return binary;
             }
             catch (Exception)
             {
@@ -132,8 +207,23 @@ namespace Assignment_2
         {
             try
             {
-                // Write your code here
-                return 0; // Placeholder
+                // Initialize pointers for binary search
+                int left = 0, right = nums.Length - 1;
+                // Perform binary search to find the minimum element
+                while (left < right)
+                {
+                    int mid = left + (right - left) / 2;
+                    if (nums[mid] > nums[right])
+                    {
+                        left = mid + 1;
+                    }
+                    else
+                    {
+                        right = mid;
+                    }
+                }
+                // Return the minimum element
+                return nums[left];
             }
             catch (Exception)
             {
@@ -146,8 +236,29 @@ namespace Assignment_2
         {
             try
             {
-                // Write your code here
-                return false; // Placeholder
+                // If the number is negative, it is not a palindrome
+                if (x < 0)
+                {
+                    return false;
+                }
+
+                // Convert the number to a string
+                string s = x.ToString();
+                // Initialize pointers for comparison
+                int left = 0;
+                int right = s.Length - 1;
+                // Compare characters from both ends
+                while (left < right)
+                {
+                    if (char.ToLower(s[left]) != char.ToLower(s[right]))
+                    {
+                        return false;
+                    }
+                    left++;
+                    right--;
+                }
+                // Return true if the number is a palindrome
+                return true;
             }
             catch (Exception)
             {
@@ -160,8 +271,27 @@ namespace Assignment_2
         {
             try
             {
-                // Write your code here
-                return 0; // Placeholder
+                // Initialize variables for Fibonacci calculation
+                int a = 0, b = 1, c = 0;
+                // If n is 0, return 0
+                if (n == 0)
+                {
+                    return a;
+                }
+                // If n is 1, return 1
+                else if (n == 1)
+                {
+                    return b;
+                }
+                // Calculate Fibonacci number iteratively
+                for (int i = 2; i <= n; i++)
+                {
+                    c = a + b;
+                    a = b;
+                    b = c;
+                }
+                // Return the nth Fibonacci number
+                return c;
             }
             catch (Exception)
             {
